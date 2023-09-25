@@ -1,3 +1,4 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/AFS-Summerside/AmendaBot/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/AFS-Summerside/AmendaBot/tree/main)
 # AmendaBot
 
 How many times have you heard this: `I'd like to propose an amendment!`
