@@ -1,0 +1,23 @@
+{
+  "name": "amendabot",
+  "version": "1.0.0",
+  "description": "PIPSC Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AFS-Summerside/AmendaBot.git"
+  },
+  "author": "Justin Murphy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AFS-Summerside/AmendaBot/issues"
+  },
+  "homepage": "https://github.com/AFS-Summerside/AmendaBot#readme",
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "tweetnacl": "^1.0.3"
+  }
+}
