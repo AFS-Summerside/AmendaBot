@@ -11,7 +11,7 @@
     "url": "git+https://github.com/AFS-Summerside/AmendaBot.git"
   },
   "author": "Justin Murphy",
-  "license": "ISC",
+  "license": "LGPL-2.1-or-later",
   "bugs": {
     "url": "https://github.com/AFS-Summerside/AmendaBot/issues"
   },
@@ -19,5 +19,8 @@
   "dependencies": {
     "aws-lambda": "^1.0.7",
     "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
   }
 }

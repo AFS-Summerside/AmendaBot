@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Package App",
+      "dependsOn": ["CleanBuildDir", "CleanTargetsDir", "Compile", "ZipFunction", "ZipLayers"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "CleanBuildDir",
+      "type": "shell",
+      "command": "rm -rf ./build/*"
+    },
+    {
+      "label": "CleanTargetsDir",
+      "type": "shell",
+      "command": "rm -rf ./targets/*"
+    },
+    {
+      "label": "Compile",
+      "type": "shell",
+      "command": "tsc -b",
+      "problemMatcher": ["$tsc"],
+      "dependsOn": ["CleanBuildDir"]
+    },
+    {
+      "label": "ZipFunction",
+      "type": "shell",
+      "command": "cd build && zip -r ../targets/amendabot.zip .",
+      "dependsOn": ["Compile", "CleanTargetsDir"]
+    },
+    {
+      "label": "ZipLayers",
+      "type": "shell",
+      "command": "cd node_modules && zip -r ../targets/layer.zip .",
+      "dependsOn": ["CleanTargetsDir"]
+    }
+  ]
+}
