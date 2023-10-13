@@ -6,4 +6,4 @@ build/
 targets/
 
 #VSCode settings
-#.vscode/
+.vscode/.env

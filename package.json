@@ -18,6 +18,7 @@
   "homepage": "https://github.com/AFS-Summerside/AmendaBot#readme",
   "dependencies": {
     "aws-lambda": "^1.0.7",
+    "status-code-enum": "^1.0.0",
     "tweetnacl": "^1.0.3"
   },
   "devDependencies": {

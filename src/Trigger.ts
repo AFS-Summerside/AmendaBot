@@ -16,7 +16,7 @@ export class Trigger {
     return this.#validBot;
   }
 
-  buildBody(bodyString: string): body {
+  private buildBody(bodyString: string): body {
     var bodyJson = JSON.parse(bodyString);
     return {
       interactionType: bodyJson.type,
