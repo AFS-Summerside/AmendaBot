@@ -1,12 +1,17 @@
 import { UhOh } from "./UhOh";
+import { response } from "./responseCodes";
 
 export abstract class AmendaError {
-    abstract responseCode: number;
-    abstract reponseCodeDescription: string;
+    abstract responseCode: response;
     abstract responseCodeReason: string;
     abstract responseCodeSetBy: string;
     abstract minResponseCode: number;
     abstract maxResponseCode: number;
+
+
+    constructor({ rc, setBy, reason }: { rc: response; setBy: string; reason: string; }){
+
+    }
 
     protected validateResponseCode(aResponseCode: number): number {
         if (aResponseCode >= this.minResponseCode && aResponseCode <= this.maxResponseCode) {
@@ -16,10 +21,10 @@ export abstract class AmendaError {
     }
 
     public getResponseCode(): number {
-        return this.responseCode;
+        return this.responseCode.code;
     }
     public getResponseDescription(): string {
-        return this.reponseCodeDescription;
+        return this.responseCode.description;
     }
     public getResponseCodeReason(): string {
         return this.responseCodeReason;

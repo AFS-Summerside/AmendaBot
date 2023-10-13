@@ -1,10 +1,11 @@
+import { getReponseCode, response } from "./errors/responseCodes";
 import { body } from "./types/body";
 import { verifyDiscordBot } from "./util/authenticate";
 
 export class Trigger {
   #body: body;
   #validBot: boolean = false;
-  #reponseCode: number = 400;
+  #reponseCode: response = getReponseCode(418);
   #reponseBody: string = "";
 
   constructor(aSignature: string, aSignatureTimestamp: string, bodyString: string) {
@@ -40,11 +41,8 @@ export class Trigger {
   }
 
   //Response Getters and Setters
-  public getResponseCode(): number {
+  public getResponseCode(): response {
     return this.#reponseCode;
-  }
-  public setResponseCode(rc: number) {
-    this.#reponseCode = rc;
   }
   public getResponseBody(): string {
     return this.#reponseBody;

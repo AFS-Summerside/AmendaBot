@@ -8,10 +8,11 @@ import { handleApplicationCommand } from "./interactions/applicationCommand";
 import { handleApplicationCommandAutocomplete } from "./interactions/applicationCommandAutocomplete";
 import { handleMessageComponent } from "./interactions/messageComponent";
 import { handleUnauthorizedRequest } from "./interactions/unauthorizedReuqest";
+import { response, responseCategory } from "./errors/responseCodes";
 
 // Lambda Handler - gets invoked by trigger
 export const handler: Handler = async function (event: APIGatewayProxyEvent) {
-  console.info("Request Recieved >>" + event + "<<")
+  // console.info("Request Recieved >>" + event + "<<")
   const signature = event.headers["x-signature-ed25519"] ?? "";
   const timestamp = event.headers["x-signature-timestamp"] ?? "";
   const strBody = event.body ?? "";
@@ -26,7 +27,7 @@ export const handler: Handler = async function (event: APIGatewayProxyEvent) {
     handleUnauthorizedRequest(triggerEvent);
   }
 
-  logReponse(triggerEvent);
+  // logReponse(triggerEvent);
   
   return {
     statusCode: triggerEvent.getResponseCode,
@@ -63,32 +64,23 @@ function handleRequest(triggerEvent: Trigger){
     }
   }
 }
-function logReponse(triggerEvent: Trigger): void {
-  let rc: number = triggerEvent.getResponseCode();
-
-  switch(true){
-    case rc >= 200 && rc <= 299:
-      console.info("Request was Successful!");
-      break;
-    case rc >= 300 && rc <= 399:
-      console.warn("Addition action required to faciliate request");
-    case rc >=400 && rc <= 499:
-      buildRequestErrorResponse();
-      break;
-    case rc >= 500 && rc <= 599:
-      buildServerErrorResponse();
-      break;
+// function logReponse(triggerEvent: Trigger): void {
+//   console.log("Reponse code is " + triggerEvent.getResponseCode().code)
+//   switch(triggerEvent.getResponseCode().category){
+//     case responseCategory.SUCCESSFUL:
+//       console.info("Request was Successful!");
+//       break;
+//     case responseCategory.REDIRECTION:
+//       console.warn("Addition action required to faciliate request");
+//     case responseCategory.CLIENT_ERROR:
+//       console.log("Client Error");
+//       console.error("Request Body:" + triggerEvent.getRequestBody());
+//       break;
+//     case responseCategory.SERVER_ERROR:
+//       console.log("Server Error");
+//       console.error("Reponse Body:" + triggerEvent.getResponseBody());
+//       break;
     
-  }
-}
-
-function buildRequestErrorResponse():void {
-  throw new Error("Function not implemented.");
-}
-
-
-  
-function buildServerErrorResponse():void {
-  throw new Error("Function not implemented.");
-}
+//   }
+// }
 
