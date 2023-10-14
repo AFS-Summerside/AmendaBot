@@ -1,4 +1,4 @@
-import { interactionType } from "../interactionType";
+import { interactionType } from "./interactionType";
 import { commandName } from "./commandName";
 import { options } from "./options";
 
