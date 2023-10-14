@@ -1,5 +1,5 @@
 import { Trigger } from "../Trigger";
-import { interactionType } from "../types/type";
+import { interactionType } from "../types/interactionType";
 
 const responseBody = {
   type: interactionType.PING,

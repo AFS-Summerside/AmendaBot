@@ -1,6 +1,6 @@
 import { Handler, APIGatewayProxyEvent } from "aws-lambda";
 import { Trigger } from "./Trigger";
-import { interactionType } from "./types/type";
+import { interactionType } from "./types/interactionType";
 import { handlePing } from "./interactions/ping";
 import { handleIvalidInteraction } from "./interactions/invalidInteraction";
 import { handleModalSubmit } from "./interactions/modalSubmit";
@@ -22,21 +22,20 @@ export const handler: Handler = async function (event: APIGatewayProxyEvent) {
   //Check signature of request
   if (triggerEvent.isValidCaller()) {
     handleRequest(triggerEvent);
-  }
-  else{
+  } else {
     handleUnauthorizedRequest(triggerEvent);
   }
 
   // logReponse(triggerEvent);
-  
+
   return {
     statusCode: triggerEvent.getResponseCode,
     body: triggerEvent.getResponseBody,
   };
-}
+};
 
 //Handle different request types
-function handleRequest(triggerEvent: Trigger){
+function handleRequest(triggerEvent: Trigger) {
   switch (triggerEvent.getRequestBody().interactionType) {
     case interactionType.PING: {
       handlePing(triggerEvent);
@@ -80,7 +79,6 @@ function handleRequest(triggerEvent: Trigger){
 //       console.log("Server Error");
 //       console.error("Reponse Body:" + triggerEvent.getResponseBody());
 //       break;
-    
+
 //   }
 // }
-
