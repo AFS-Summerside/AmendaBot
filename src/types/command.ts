@@ -1,11 +1,11 @@
 import { interactionType } from "./interactionType";
 import { commandName } from "./commandName";
-import { options } from "./options";
+import { option } from "./option";
 
 export type command = {
   id: number;
   name: commandName;
   type: interactionType;
   description: string;
-  options: options[];
+  options: option[];
 };

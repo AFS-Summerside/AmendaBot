@@ -1,20 +1,20 @@
-import { getReponseCode, response } from "./errors/responseCodes";
-import { body } from "./types/body";
-import { verifyDiscordBot } from "./util/authenticate";
+import { getReponseCode, response } from "../errors/responseCodes";
+import { body } from "../types/body";
+import { verifyDiscordBot } from "./authenticate";
 
 export class Trigger {
   #body: body;
   #validBot: boolean = false;
-  #reponseCode: response = getReponseCode(418);
-  #reponseBody: string = "";
+  #reponseCode: response = getReponseCode(500);
+  #reponseBody: string = "INITIAL STATE";
 
-  constructor(aSignature: string, aSignatureTimestamp: string, bodyString: string) {
-    this.#validBot = verifyDiscordBot(aSignature, aSignatureTimestamp, bodyString);
+  constructor(bodyString: string){
     this.#body = this.buildBody(bodyString);
-  }
+  };
 
-  public isValidCaller(): boolean {
-    return this.#validBot;
+  public verifyCall(aSignature: string, aSignatureTimestamp: string):void {
+    verifyDiscordBot(aSignature, aSignatureTimestamp, this.#body.fullBody);
+    this.#validBot = true;
   }
 
   private buildBody(bodyString: string): body {
@@ -39,7 +39,10 @@ export class Trigger {
   public getRequestBody(): body {
     return this.#body;
   }
-
+  public isValidCaller(): boolean {
+    return this.#validBot;
+  }
+  
   //Response Getters and Setters
   public getResponseCode(): response {
     return this.#reponseCode;
@@ -49,5 +52,8 @@ export class Trigger {
   }
   public setResponseBody(body: string) {
     this.#reponseBody = body;
+  }
+  public setResponseCode(rc: response) {
+    this.#reponseCode = rc;
   }
 }

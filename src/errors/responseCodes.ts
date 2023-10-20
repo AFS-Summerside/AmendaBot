@@ -1,4 +1,5 @@
-import { UhOh } from "./UhOh";
+import { DeprecatedResponseError } from "./serverError/DeprecatedResponseCodeError";
+import { UhOh } from "./serverError/UhOh";
 
 export enum responseCategory {
     INFORMATIONAL=100,
@@ -46,9 +47,9 @@ export function getReponseCode(rc: number):response {
             return element
         }
     });
-    RedirectionResponse.forEach(element => {
+    DeprecatedResponse.forEach(element => {
         if (element.code === rc){
-            throw new UhOh("Deprecated Response!"+element)
+            throw new DeprecatedResponseError("Deprecated Response Code Found!", element)
         }
     });
     throw new UhOh("What on earth is rc >>" + rc +"<<");
@@ -129,7 +130,7 @@ export const ServerErrorResponse:response[] = [
     <response>{code:511,name:"Network Authentication Error",description:"",category:responseCategory.SERVER_ERROR},
 ]
 
-const DeprecatedResponse:response[] = [
+export const DeprecatedResponse:response[] = [
     <response>{code:305,name:"Use Proxy",description:"requested response must be accessed by a proxy.",category:responseCategory.DEPRECATED},
     <response>{code:306,name:"Unused",description:"",category:responseCategory.DEPRECATED},
 ]

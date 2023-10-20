@@ -1,3 +1,4 @@
+import { interaction } from "./interaction";
 import { user } from "./user";
 
 export type body = {
@@ -5,4 +6,5 @@ export type body = {
   user: user;
   version: number;
   fullBody: string;
+  interaction: interaction;
 };

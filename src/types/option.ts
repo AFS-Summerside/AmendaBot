@@ -1,7 +1,7 @@
+import { choices } from "./choice";
 import { interactionType } from "./interactionType";
-import { choices } from "./choices";
 
-export type options = {
+export type option = {
   name: string;
   description: string;
   type: interactionType;

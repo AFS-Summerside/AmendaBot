@@ -1,4 +1,4 @@
-import { Trigger } from "../Trigger";
+import { Trigger } from "../trigger/Trigger";
 import { handleIvalidInteraction } from "./invalidInteraction";
 
 export function handleMessageComponent(triggerEvent: Trigger): void {

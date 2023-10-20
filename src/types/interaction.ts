@@ -1,13 +1,11 @@
 import { applicationCommand } from "./applicationCommand";
 import { interactionType } from "./interactionType";
-import { messageComponent } from "./messageComponent";
-import { modalSubmit } from "./modalSubmit";
 
-export type interfaction = {
+export type interaction = {
   id: number;
   application_id: number;
   type: interactionType;
-  data?: applicationCommand | messageComponent | modalSubmit;
+  data?: applicationCommand;
   guild_id?: number;
   channel?: object;
   channel_id?: number;
