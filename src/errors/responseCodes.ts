@@ -1,6 +1,8 @@
+import { Logger } from "@aws-lambda-powertools/logger";
 import { DeprecatedResponseError } from "./serverError/DeprecatedResponseCodeError";
-import { UhOh } from "./serverError/UhOh";
+import { InvalidReponseCode } from "./serverError/InvalidReponseCode";
 
+const logger = new Logger();
 export enum responseCategory {
     INFORMATIONAL=100,
     SUCCESSFUL=200,
@@ -49,10 +51,12 @@ export function getReponseCode(rc: number):response {
     });
     DeprecatedResponse.forEach(element => {
         if (element.code === rc){
-            throw new DeprecatedResponseError("Deprecated Response Code Found!", element)
+            logger.critical("Response is deprecated: " + rc)
+            throw new DeprecatedResponseError(rc)
         }
     });
-    throw new UhOh("What on earth is rc >>" + rc +"<<");
+    logger.critical("Response Code Not Found: " + rc)
+    throw new InvalidReponseCode(rc);
 }
 const InfomrationalResponseCodes: response[] =[
     <response>{code:100,name:"Continue",description:"Continue request, or ignore if finished",category:responseCategory.INFORMATIONAL},

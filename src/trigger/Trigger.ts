@@ -1,15 +1,15 @@
 import { getReponseCode, response } from "../errors/responseCodes";
 import { body } from "../types/body";
-import { verifyDiscordBot } from "./authenticate";
+import { verifyDiscordBot } from "../validators/authenticate";
 
 export class Trigger {
-  #body: body;
+  #body: body = {} as body;
   #validBot: boolean = false;
   #reponseCode: response = getReponseCode(500);
   #reponseBody: string = "INITIAL STATE";
 
   constructor(bodyString: string){
-    this.#body = this.buildBody(bodyString);
+    // this.#body = this.buildBody(bodyString);
   };
 
   public verifyCall(aSignature: string, aSignatureTimestamp: string):void {
@@ -17,22 +17,23 @@ export class Trigger {
     this.#validBot = true;
   }
 
-  private buildBody(bodyString: string): body {
+  //TODO will return body
+  private buildBody(bodyString: string): void {
     var bodyJson = JSON.parse(bodyString);
-    return {
-      interactionType: bodyJson.type,
-      user: {
-        avatar: bodyJson.user.avatar,
-        avatar_decoration_data: bodyJson.user.avatar_decoration_data,
-        discriminator: bodyJson.user.discriminator,
-        global_name: bodyJson.user.global_name,
-        id: bodyJson.user.id,
-        public_flags: bodyJson.user.public_flags,
-        username: bodyJson.user.username,
-      },
-      version: bodyJson.version,
-      fullBody: bodyString,
-    };
+    // return {
+    //   interactionType: bodyJson.type,
+    //   user: {
+    //     avatar: bodyJson.user.avatar,
+    //     avatar_decoration_data: bodyJson.user.avatar_decoration_data,
+    //     discriminator: bodyJson.user.discriminator,
+    //     global_name: bodyJson.user.global_name,
+    //     id: bodyJson.user.id,
+    //     public_flags: bodyJson.user.public_flags,
+    //     username: bodyJson.user.username,
+    //   },
+    //   version: bodyJson.version,
+    //   fullBody: bodyString,
+    // };
   }
 
   // Request Getter
@@ -50,10 +51,10 @@ export class Trigger {
   public getResponseBody(): string {
     return this.#reponseBody;
   }
-  public setResponseBody(body: string) {
+  public setResponseBody(body: string): void {
     this.#reponseBody = body;
   }
-  public setResponseCode(rc: response) {
+  public setResponseCode(rc: response): void {
     this.#reponseCode = rc;
   }
 }

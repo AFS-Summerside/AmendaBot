@@ -1,7 +1,7 @@
 
 import { InvalidReponseCode } from "./InvalidReponseCode";
 
-export class DeprecatedResponseError extends InvalidReponseCode{
+export class ReponseCodeNotFound extends InvalidReponseCode{
     constructor(rc: number){
         super(rc);
     }

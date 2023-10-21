@@ -13,9 +13,10 @@ const logger = new Logger();
 
 // Lambda Handler - gets invoked by trigger
 export const handler: Handler = async function (event: APIGatewayProxyEvent):Promise<{statusCode:string,body:string}> {
-  const signature = event.headers["x-signature-ed25519"] ?? "";
-  const timestamp = event.headers["x-signature-timestamp"] ?? "";
-  const strBody = event.body ?? "";
+  const signature:string = event.headers["x-signature-ed25519"] as string;
+  const timestamp:string = event.headers["x-signature-timestamp"] as string;
+  const strBody:string = event.body as string;
+
   let triggerEvent: Trigger = new Trigger(strBody);
 
   try {
@@ -79,7 +80,7 @@ function handleError(error: unknown, triggerEvent: Trigger) {
   // The UhOh error type is used when there is was an error attempting to make an AmendaError so these
   else if (error instanceof UhOh) {
     logger.error("Generic System Error", error);
-    triggerEvent.setResponseCode(getReponseCode(500));
+    triggerEvent.setResponseCode(getReponseCode(error.getResponseCode()));
     triggerEvent.setResponseBody(error.message);
   }
   // just a catchall to log unchecked exceptions
